@@ -1,19 +1,22 @@
 export const app = {
-  getPath: () => process.cwd(),
-  isPackaged: false,
-  getVersion: () => '1.4.0',
-  name: 'chat2api'
+  getPath: (name: string) => {
+    if (name === 'userData') {
+      const p = require('path');
+      const fs = require('fs');
+      const userDataPath = p.join(process.cwd(), 'user-data');
+      if (!fs.existsSync(userDataPath)) fs.mkdirSync(userDataPath, { recursive: true });
+      return userDataPath;
+    }
+    return '';
+  }
 };
+export const ipcMain = { handle: () => {}, on: () => {} };
+export const BrowserWindow = { getAllWindows: () => [] };
+export const shell = { openExternal: () => {} };
+export const dialog = {};
+export const nativeTheme = {};
 export const safeStorage = {
   isEncryptionAvailable: () => false,
-  encryptString: (str) => Buffer.from(str),
-  decryptString: (buf) => buf.toString()
+  encryptString: (str: string) => Buffer.from(str),
+  decryptString: (buf: Buffer) => buf.toString()
 };
-export const BrowserWindow = {
-  getAllWindows: () => []
-};
-export const ipcMain = {
-  handle: () => {},
-  on: () => {}
-};
-export default { app, safeStorage, BrowserWindow, ipcMain };

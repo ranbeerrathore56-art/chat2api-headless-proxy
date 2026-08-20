@@ -1,4 +1,6 @@
-// Completely override any local tsconfig configurations that conflict
+// Enable WASM support in Node.js
+process.env.NODE_OPTIONS = (process.env.NODE_OPTIONS || "") + " --experimental-wasm-modules";
+
 require('ts-node').register({
   transpileOnly: true,
   skipProject: true, // ignore tsconfig.json entirely
@@ -12,4 +14,6 @@ require('ts-node').register({
     }
   }
 });
+
+// Patch the environment to load the WASM properly if needed
 require('./start.ts');

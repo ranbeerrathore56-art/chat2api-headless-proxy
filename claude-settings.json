@@ -1,0 +1,21 @@
+{
+  "customProviders": {
+    "qwengate": {
+      "url": "http://localhost:8080/v1/messages"
+    }
+  },
+  "customModels": {
+    "qwengate": [
+      {
+        "id": "deepseek-v4-pro",
+        "displayName": "DeepSeek V4 Pro",
+        "contextWindow": 1000000,
+        "maxTokens": 65536,
+        "capabilities": [
+          "tools",
+          "computer"
+        ]
+      }
+    ]
+  }
+}

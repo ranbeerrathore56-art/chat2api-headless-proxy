@@ -20,4 +20,4 @@ COPY start.ts ./
 
 EXPOSE 8080
 
-CMD ["bun", "--preload", "./preload-electron.ts", "start.ts"]
+CMD ["node", "start-docker.js"]

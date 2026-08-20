@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: chat2api-proxy
+    env: docker
+    repo: https://github.com/ranbeerrathore56-art/chat2api-headless-proxy.git
+    branch: main
+    autoDeploy: true
+    envVars:
+      - key: DEEPSEEK_TOKENS
+        value: XlgdD4X/kG/fAgyfU2PlRRV5ICm7COY7GB6A8SlfHBybwP3ip71oaQt8m2ZawRY7

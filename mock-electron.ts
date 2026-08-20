@@ -1,4 +1,6 @@
 export const app = {
+  isPackaged: false,
+  getAppPath: () => process.cwd(),
   getPath: (name: string) => {
     if (name === 'userData') {
       const p = require('path');

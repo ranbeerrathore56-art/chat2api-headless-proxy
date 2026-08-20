@@ -14,13 +14,11 @@ async function main() {
     else storeManager.updateProvider(provider.id, provider);
   }
 
-  // Auto-inject DeepSeek tokens from Environment Variables
-  // Expected format: DEEPSEEK_TOKENS="token1,token2,token3"
+  // Auto-inject DeepSeek tokens
   if (process.env.DEEPSEEK_TOKENS) {
     console.log("Loading DeepSeek tokens from environment...");
     const tokens = process.env.DEEPSEEK_TOKENS.split(',');
     
-    // Clear old accounts to avoid duplicates across restarts
     const existing = storeManager.getAccountsByProviderId('deepseek');
     for (const acc of existing) storeManager.deleteAccount(acc.id);
 
@@ -41,8 +39,7 @@ async function main() {
     }
   }
 
-  // Auto-inject Qwen tokens from Environment Variables
-  // Expected format: QWEN_TOKENS="jwt1,jwt2"
+  // Auto-inject Qwen tokens
   if (process.env.QWEN_TOKENS) {
     console.log("Loading Qwen AI tokens from environment...");
     const tokens = process.env.QWEN_TOKENS.split(',');
@@ -66,8 +63,6 @@ async function main() {
     }
   }
 
-  // We can add MiMo support here as well, though it requires 3 values per account.
-  // A simple way is to pass JSON strings in the environment variable.
   if (process.env.MIMO_ACCOUNTS) {
     try {
       const accounts = JSON.parse(process.env.MIMO_ACCOUNTS);
@@ -95,12 +90,13 @@ async function main() {
     }
   }
 
+  // Determine port from environment or fallback to 8080
+  const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
+
   // Start the server
   const server = new ProxyServer();
-  // Ensure it binds to 0.0.0.0 so Docker exposes it correctly
-  (server as any).host = '0.0.0.0';
-  server.start();
-  console.log("Headless proxy started successfully!");
+  server.start(port, '0.0.0.0');
+  console.log(`Headless proxy started successfully on 0.0.0.0:${port}!`);
 }
 
 main().catch(console.error);
